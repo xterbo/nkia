@@ -10,13 +10,13 @@ function AuthScreen() {
   const handleGoogleSignIn = () => {
     // TODO: Implement Google Sign-In logic
     console.log('Google Sign-In clicked');
-    // navigate('/onboarding/experience'); // Navigate after sign-in
+    navigate('/onboarding/experience'); // Navigate after sign-in
   };
 
   const handleEmailSignIn = () => {
     // TODO: Implement Email Sign-In logic/navigation
     console.log('Email Sign-In clicked');
-    // navigate('/onboarding/experience'); // Navigate after sign-in
+    navigate('/onboarding/experience'); // Navigate after sign-in
   };
 
   return (
