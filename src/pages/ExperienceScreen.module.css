@@ -1,0 +1,65 @@
+.container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 60px 20px 40px 20px; /* More top padding */
+    box-sizing: border-box;
+    background-image: url('../assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    /* Justify content between title/list and button */
+    justify-content: space-between; 
+    align-items: center;
+    text-align: center;
+}
+
+.title {
+    font-family: 'Bellota', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 1.8rem; /* Adjust */
+    color: #333; /* Placeholder */
+    margin-bottom: 40px;
+    width: 90%; /* Ensure text wraps nicely */
+}
+
+.optionsList {
+    width: 100%;
+    margin-bottom: 40px; /* Space above button */
+}
+
+.optionItem {
+    font-family: 'Bellota', sans-serif;
+    font-weight: 400; /* Regular */
+    font-size: 1.1rem;
+    color: #444; /* Placeholder */
+    padding: 18px 15px;
+    border-bottom: 1px solid #c8e6c9; /* Light green border */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    background-color: rgba(255, 255, 255, 0.1); /* Slight transparent background */
+}
+
+.optionItem:first-child {
+    border-top: 1px solid #c8e6c9; /* Add top border to first item */
+}
+
+.optionItem:hover,
+.optionItem.selected {
+    background-color: rgba(165, 214, 167, 0.3); /* Light green highlight on hover/select */
+}
+
+.arrowIcon {
+    font-size: 1.5rem;
+    color: #555;
+    /* Replace with actual icon styles */
+}
+
+.continueButton {
+    /* Ensure button is at the bottom */
+    /* Specific styles if needed beyond the component defaults */
+} 

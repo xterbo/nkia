@@ -1,0 +1,55 @@
+.customButton {
+  /* Reset default button styles */
+  border: none;
+  background: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font-family: 'Bellota', sans-serif; /* Inherit the project font */
+
+  /* Set the SVG as the background */
+  background-image: url('../assets/icons/button-shape.svg');
+  background-repeat: no-repeat;
+  background-size: contain; /* Scale SVG to fit */
+  background-position: center;
+
+  /* Define size - Adjust these based on the SVG's aspect ratio and desired size */
+  /* These are initial guesses and likely need refinement */
+  width: 280px; 
+  height: 70px; /* Maintain aspect ratio if possible */
+  max-width: 85%; /* Prevent it from being too large on smaller screens */
+
+  /* Style the text container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  /* Prevent text selection */
+  user-select: none;
+
+  /* Add a slight transition for hover effects (optional) */
+  transition: transform 0.2s ease-out;
+}
+
+/* Optional: Add a hover effect, like a slight scale */
+.customButton:hover {
+  transform: scale(1.03);
+}
+
+.customButton:active {
+  transform: scale(0.98); /* Pressed effect */
+}
+
+.buttonText {
+  color: #0B0B0B; /* Updated text color */
+  font-weight: 700; /* Bold */
+  font-size: 1.2rem; /* Adjust as needed */
+  /* Add padding or adjust line-height if text isn't vertically centered */
+  padding-bottom: 5px; /* Small adjustment often needed with custom shapes */
+  
+  /* Add text stroke */
+  -webkit-text-stroke: 1px #CC9D4A; /* width and color */
+  /* Fallback for non-webkit browsers (less common for text stroke) */
+  text-stroke: 1px #CC9D4A; 
+} 

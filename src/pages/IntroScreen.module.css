@@ -1,0 +1,33 @@
+/* Import shared container styles if needed, or redefine */
+.container {
+  min-height: 100vh;
+  width: 100%;
+  padding: 40px 20px;
+  box-sizing: border-box;
+  background-image: url('../assets/background.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  text-align: center;
+}
+
+.text {
+  font-family: 'Bellota', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 1.3rem; /* Adjust as needed */
+  color: #444; /* Placeholder */
+  max-width: 80%; /* Prevent text from being too wide */
+  margin-bottom: 40px; /* Space before button */
+}
+
+/* Placeholder button styles removed - handled by CustomButton component */
+
+/* Add specific margin/layout for the button container if needed */
+.joinButton {
+  /* Example: Add margin if the button needs specific spacing */
+  margin-top: 20px; 
+} 

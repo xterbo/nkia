@@ -1,0 +1,36 @@
+/* Base styles for page containers */
+.container {
+  min-height: 100vh; /* Full viewport height */
+  width: 100%;
+  padding: 40px 20px; /* Add some padding */
+  box-sizing: border-box; /* Include padding in width/height */
+
+  /* Apply the background */
+  background-image: url('../assets/background.png');
+  background-size: cover; /* Cover the entire container */
+  background-position: center;
+  background-repeat: no-repeat;
+
+  /* Flexbox for centering content */
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Vertically center */
+  align-items: center; /* Horizontally center */
+  text-align: center;
+}
+
+/* Specific styles for SplashScreen elements */
+.title {
+  font-family: 'Bellota', sans-serif; /* Use Bellota, fallback if needed */
+  font-weight: 700; /* Bold */
+  font-size: 3.5rem; /* Adjust size as needed */
+  color: #333; /* Placeholder color - dark grey/black */
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-family: 'Bellota', sans-serif;
+  font-weight: 400; /* Regular */
+  font-size: 1.2rem; /* Adjust size as needed */
+  color: #555; /* Placeholder color - slightly lighter grey */
+} 
