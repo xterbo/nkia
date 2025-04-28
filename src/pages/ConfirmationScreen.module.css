@@ -1,0 +1,58 @@
+/* Base styles - assuming standard background */
+.container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px; 
+    box-sizing: border-box;
+    background-image: url('../assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Push button to bottom */
+    align-items: center;
+    text-align: center;
+}
+
+/* Center the main content (image and text) */
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Allow content to take available space */
+    margin-bottom: 30px; /* Space above button */
+}
+
+/* Styles for the actual image */
+.sealImage {
+    width: 120px; /* Adjust size as needed */
+    height: 120px;
+    margin-bottom: 30px;
+    object-fit: contain;
+}
+
+/* Placeholder styles removed */
+
+.title {
+    font-family: 'Bellota', sans-serif;
+    font-weight: 700; /* Bold */
+    font-size: 1.6rem; /* Adjust */
+    color: #333; /* Placeholder */
+    margin-bottom: 15px;
+    width: 90%; 
+}
+
+.subtitle {
+    font-family: 'Bellota', sans-serif;
+    font-weight: 400; /* Regular */
+    font-size: 1.1rem;
+    color: #555; /* Placeholder */
+    width: 85%;
+    line-height: 1.4;
+}
+
+.continueButton {
+    /* Specific styles if needed */
+} 

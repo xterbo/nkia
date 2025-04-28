@@ -1,0 +1,130 @@
+.container {
+    min-height: 100vh;
+    width: 100%;
+    position: relative; /* Needed for absolute positioning of children */
+    padding: 0; /* Remove padding if map covers whole screen */
+    box-sizing: border-box;
+    /* Remove placeholder color, background applied inline */
+    background-size: cover;
+    background-position: center;
+    overflow: hidden; /* Hide anything extending beyond map */
+}
+
+/* Top scroll element */
+.topScrollContainer {
+    position: absolute;
+    top: 10px; /* Adjust position */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 95%; /* Increased width substantially */
+    max-width: 380px; /* Increased max-width substantially */
+    z-index: 10;
+    /* Remove placeholder color, background applied inline */
+    /* Adjust aspect ratio based on bscroll.png */
+    aspect-ratio: 2.5 / 1; /* Keep adjusted ratio for now */
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.topScrollContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    /* Center items vertically */
+    align-items: center; 
+    justify-content: space-between; 
+    /* Adjust padding for larger text */
+    padding: 10px 15px 10px 20px; /* More left padding */
+    box-sizing: border-box;
+}
+
+.topScrollText {
+    font-family: 'Bellota', sans-serif; 
+    font-size: 0.95rem; /* Increased font size back up */
+    color: #4e342e;
+    line-height: 1.3; 
+    text-align: left;
+    flex-grow: 1; 
+    margin-right: 8px; 
+    /* Remove margin-top as align-items: center handles vertical */
+    /* margin-top: 5px; */ 
+}
+
+/* Remove placeholder */
+/* .topAvatarPlaceholder {...} */
+
+/* Style for the actual avatar in the top scroll */
+.topAvatarImage {
+    width: 45px; 
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0; 
+}
+
+/* Base milestone styling */
+.milestone {
+    position: absolute;
+    z-index: 5;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.milestone:hover {
+    transform: scale(1.1);
+}
+
+/* Placeholder for milestone icons removed */
+/* .milestoneIconPlaceholder { ... } */
+
+/* Style for actual milestone images */
+.milestoneImage {
+    display: block; /* Remove extra space below image */
+    width: 49px; /* Width from provided snippet */
+    height: 50px; /* Height from provided snippet (rounded) */
+    object-fit: contain; /* Ensure image fits within bounds */
+}
+
+/* Removed Popup Banner Styles */
+/* .popupBanner { ... } */
+/* .popupBannerText { ... } */
+
+/* Styles for the popup banner itself, positioned absolutely */
+.popupBanner {
+    position: absolute; 
+    /* bottom/left/transform set inline in component */
+    z-index: 20; /* Ensure it's above milestones/stamp */
+
+    width: 85vw; 
+    max-width: 380px; 
+    height: 60px; /* Adjust as needed */
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    font-family: 'Bellota', sans-serif;
+    background-image: url('../assets/icons/custombutton.svg'); /* Ensure SVG background */
+    background-size: 100% 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.popupBannerText {
+    font-family: 'Bellota', sans-serif;
+    font-weight: 700; 
+    font-size: 0.9rem; /* Reduced font size */
+    color: #0B0B0B;
+    -webkit-text-stroke: 1px #CC9D4A;
+    text-stroke: 1px #CC9D4A;
+    /* padding-bottom: 3px; Removed to shift text up slightly */ 
+    padding-bottom: 10px; /* Add padding-bottom to push text up (8px + 2px) */
+} 

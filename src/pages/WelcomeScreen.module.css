@@ -1,0 +1,96 @@
+/* Base styles */
+.container {
+    min-height: 100vh;
+    width: 100%;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    background-image: url('../assets/background.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding-top: 40px;
+    flex-grow: 1;
+    width: 100%;
+}
+
+/* Container for the scroll element */
+.scrollContainer {
+    position: relative; /* Needed for absolute positioning of content */
+    width: 95%; /* Adjust as needed */
+    max-width: 380px;
+    margin-top: -60px; /* Adjust this value (-50px to -80px) as needed */
+    margin-bottom: 30px; /* Add back some space below the scroll */
+    /* Adjust aspect ratio based on the actual scroll image */
+    aspect-ratio: 16 / 9; /* Example ratio - adjust! */
+
+    /* Style the background image */
+    background-size: contain; /* Or cover */
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+/* Styles for the scroll image removed - using background */
+
+/* Placeholder for the scroll image removed */
+
+/* Content positioned over the scroll image */
+.scrollContent {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 20px;
+    box-sizing: border-box;
+}
+
+/* Avatar styles */
+.avatarImage {
+    width: 80px; /* Adjust */
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px; /* Space between avatar and text */
+    margin-top: -20px; /* Increase negative margin to pull it up more */
+}
+
+/* Avatar placeholder removed */
+
+.welcomeText {
+    font-family: 'Bellota', sans-serif; /* Or the script font if different */
+    font-weight: 700; /* Bold */
+    font-size: 1.7rem; /* Adjust */
+    color: #4e342e; /* Dark brown placeholder */
+    text-align: center; /* Ensure text is centered */
+    width: 100%; /* Allow text to take full width for centering */
+    margin: 0; /* Remove any default margins */
+}
+
+.introText {
+    font-family: 'Bellota', sans-serif; /* Or script font? */
+    font-weight: 400; /* Regular */
+    font-size: 1.1rem; /* Adjust */
+    color: #333; /* Placeholder */
+    width: 85%;
+    line-height: 1.4;
+}
+
+.continueButton {
+    /* Specific styles if needed */
+} 

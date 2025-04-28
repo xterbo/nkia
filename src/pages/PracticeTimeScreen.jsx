@@ -20,9 +20,8 @@ function PracticeTimeScreen() {
   const handleContinue = () => {
     if (selectedOption) {
       console.log('Selected practice time:', selectedOption);
-      // TODO: Navigate to the next step (Screen 7 - Confirmation)
-      // navigate('/onboarding/confirmation'); 
-      alert('Next screen TBD'); // Placeholder navigation
+      // Navigate to the confirmation screen
+      navigate('/onboarding/confirmation'); 
     } else {
       alert('Please select a time.');
     }
