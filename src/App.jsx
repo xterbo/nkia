@@ -1,44 +1,38 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SplashScreen from './pages/SplashScreen'; // Placeholder
-import IntroScreen from './pages/IntroScreen';   // Placeholder
-import AuthScreen from './pages/AuthScreen';     // Placeholder
-// Import onboarding pages
+import SplashScreen from './pages/SplashScreen';
+import IntroScreen from './pages/IntroScreen';
+import AuthScreen from './pages/AuthScreen';
 import ExperienceScreen from './pages/ExperienceScreen';
 import GoalsScreen from './pages/GoalsScreen';
 import PracticeTimeScreen from './pages/PracticeTimeScreen';
-// Import new screens
 import ConfirmationScreen from './pages/ConfirmationScreen';
 import WelcomeScreen from './pages/WelcomeScreen';
-// Import map screens
-// import MapIntroScreen from './pages/MapIntroScreen'; // Removed import
 import MainMapScreen from './pages/MainMapScreen';
-// ... import other page placeholders as needed ...
+import HabitBuildingScreen from './pages/HabitBuildingScreen';
+import JustBreatheScreen from './pages/JustBreatheScreen';
+import BodyAwarenessScreen from './pages/BodyAwarenessScreen';
+import VisualizationScreen from './pages/VisualizationScreen';
 
-import './App.css'; // Assuming App.css exists for global styles
+import './App.css';
 
 function App() {
   return (
     <Router>
-      <div className="app-container"> {/* Optional: Add a container for global layout/styling */} 
+      <div className="app-container">
         <Routes>
           <Route path="/" element={<SplashScreen />} />
           <Route path="/intro" element={<IntroScreen />} />
           <Route path="/auth" element={<AuthScreen />} />
-          {/* Onboarding Routes */}
-          <Route path="/onboarding/experience" element={<ExperienceScreen />} /> 
+          <Route path="/onboarding/experience" element={<ExperienceScreen />} />
           <Route path="/onboarding/goals" element={<GoalsScreen />} />
           <Route path="/onboarding/practice-time" element={<PracticeTimeScreen />} />
           <Route path="/onboarding/confirmation" element={<ConfirmationScreen />} />
-          {/* Welcome Screen Route */}
-          <Route path="/welcome" element={<WelcomeScreen />} /> 
-          {/* Map Routes */}
-          {/* <Route path="/map-intro" element={<MapIntroScreen />} /> */ /* Removed route */}
-          <Route path="/map" element={<MainMapScreen />} /> 
-          {/* Add routes for other screens here */}
-          {/* Example:
-          <Route path="/onboarding/experience" element={<ExperienceScreen />} /> 
-          <Route path="/onboarding/goals" element={<GoalsScreen />} />
-          */}
+          <Route path="/welcome" element={<WelcomeScreen />} />
+          <Route path="/map" element={<MainMapScreen />} />
+          <Route path="/habits" element={<HabitBuildingScreen />} />
+          <Route path="/habits/just-breathe" element={<JustBreatheScreen />} />
+          <Route path="/habits/body-awareness" element={<BodyAwarenessScreen />} />
+          <Route path="/habits/visualization" element={<VisualizationScreen />} />
         </Routes>
       </div>
     </Router>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="120" height="200" viewBox="0 0 120 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Skull -->
+  <path d="M50 20 C50 10, 70 10, 70 20 L70 30 L50 30 Z" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <circle cx="60" cy="15" r="12" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Spine -->
+  <path d="M60 30 L60 120" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Ribcage -->
+  <path d="M60 40 C60 40, 40 45, 35 50" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M60 40 C60 40, 80 45, 85 50" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M60 50 C60 50, 40 55, 35 60" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M60 50 C60 50, 80 55, 85 60" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M60 60 C60 60, 40 65, 35 70" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M60 60 C60 60, 80 65, 85 70" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Pelvis -->
+  <path d="M40 120 C40 120, 60 130, 80 120" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M40 120 L30 140" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M80 120 L90 140" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Arms -->
+  <path d="M35 50 L20 80 L25 100" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M85 50 L100 80 L95 100" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  
+  <!-- Legs -->
+  <path d="M30 140 L25 180" stroke="#2c3e50" stroke-width="2" fill="none"/>
+  <path d="M90 140 L95 180" stroke="#2c3e50" stroke-width="2" fill="none"/>
+</svg> 
