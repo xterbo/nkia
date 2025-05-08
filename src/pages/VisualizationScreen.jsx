@@ -224,7 +224,10 @@ const VisualizationScreen = () => {
             initial="enter"
             animate="center"
             exit="exit"
-            transition={{ y: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+            transition={{ 
+              y: { type: "tween", ease: "circOut", duration: 0.4 }, 
+              opacity: { duration: 0.2 } 
+            }}
             onError={handleImageError}
           />
         </AnimatePresence>
