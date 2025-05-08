@@ -2,43 +2,43 @@
 .container {
     min-height: 100vh;
     width: 100%;
-    padding: 40px 20px;
+    padding: 20px 20px 40px 20px; /* Adjust padding */
     box-sizing: border-box;
-    background-image: url('../assets/background.png');
+    background-image: url('../assets/background.png'); /* Assuming this is the textured background */
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-between; /* Push content and button apart */
     align-items: center;
     text-align: center;
+    position: relative; /* Context for absolute children if needed (like borders) */
 }
 
 .content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding-top: 40px;
-    flex-grow: 1;
+    justify-content: flex-start; /* Align content to top */
     width: 100%;
+    /* Removed padding-top, rely on scroll margin */
 }
 
 /* Container for the scroll element */
 .scrollContainer {
-    position: relative; /* Needed for absolute positioning of content */
-    width: 95%; /* Adjust as needed */
-    max-width: 380px;
-    margin-top: -60px; /* Adjust this value (-50px to -80px) as needed */
-    margin-bottom: 30px; /* Add back some space below the scroll */
-    /* Adjust aspect ratio based on the actual scroll image */
-    aspect-ratio: 16 / 9; /* Example ratio - adjust! */
-
-    /* Style the background image */
-    background-size: contain; /* Or cover */
+    position: relative; 
+    width: 90%; 
+    max-width: 550px; /* Changed from 420px */
+    /* margin-top: -60px; Removed negative margin */
+    margin-bottom: 25px; 
+    aspect-ratio: 3 / 1; /* Adjust based on scroll image aspect ratio */
+    background-size: 100% 100%; /* Changed from contain, will stretch image */
     background-position: center;
     background-repeat: no-repeat;
+    display: flex; /* Added for potential centering within its space */
+    justify-content: center;
+    align-items: center; /* Center content vertically if needed */
 }
 
 /* Styles for the scroll image removed - using background */
@@ -47,50 +47,61 @@
 
 /* Content positioned over the scroll image */
 .scrollContent {
-    position: absolute;
-    top: 0;
-    left: 0;
+    position: relative; /* Change from absolute, let scrollContainer control BG */
     width: 100%;
-    height: 100%;
+    height: auto; /* Auto height based on content */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    padding: 15px 20px;
+    justify-content: center; 
+    padding: 10px 40px; /* Adjust padding inside scroll */
     box-sizing: border-box;
+    margin-top: 20px; /* Push content down to account for avatar */
 }
 
 /* Avatar styles */
 .avatarImage {
-    width: 80px; /* Adjust */
+    position: absolute; /* Position relative to scrollContainer */
+    top: -50px; /* Changed from -40px to move it further up */
+    left: 50%;
+    transform: translateX(-50%); /* Center horizontally */
+    width: 80px; 
     height: 80px;
     border-radius: 50%;
     object-fit: cover;
-    margin-bottom: 15px; /* Space between avatar and text */
-    margin-top: -20px; /* Increase negative margin to pull it up more */
+    z-index: 2; /* Ensure avatar is above scroll */
+    /* margin-bottom: 15px; Removed */
+    /* margin-top: -20px; Removed */
 }
 
 /* Avatar placeholder removed */
 
 .welcomeText {
-    font-family: 'Bellota', sans-serif; /* Or the script font if different */
-    font-weight: 700; /* Bold */
-    font-size: 1.7rem; /* Adjust */
-    color: #4e342e; /* Dark brown placeholder */
-    text-align: center; /* Ensure text is centered */
-    width: 100%; /* Allow text to take full width for centering */
-    margin: 0; /* Remove any default margins */
+    font-family: 'Bellota', sans-serif; /* Revisit font */
+    font-weight: bold; 
+    font-size: 1.6rem; /* Adjusted size from 1.8rem */
+    color: #000000; /* Black text from image */
+    text-align: center; 
+    width: 100%; 
+    margin: 0;
+    margin-top: 10px; /* Add some space below avatar */
 }
 
 .introText {
-    font-family: 'Bellota', sans-serif; /* Or script font? */
-    font-weight: 400; /* Regular */
-    font-size: 1.1rem; /* Adjust */
-    color: #333; /* Placeholder */
+    font-family: 'cursive', sans-serif; /* Placeholder for the specific font */
+    font-weight: 400; 
+    font-size: 1.2rem; /* Adjust size */
+    color: #3a3a3a; /* Dark grey/off-black */
     width: 85%;
-    line-height: 1.4;
+    max-width: 380px; /* Prevent text getting too wide */
+    line-height: 1.5;
+    margin-top: 0; /* Adjusted, space now comes from scroll margin */
 }
 
 .continueButton {
-    /* Specific styles if needed */
+    /* Styles for background, border, color, font, padding, sizing, etc., 
+       are now primarily handled by the CustomButton component itself. 
+       This class can be used for positioning or overrides if necessary. */
+    /* For example, if you need to add a margin specific to this screen: */
+    /* margin-top: 20px; */ 
 } 

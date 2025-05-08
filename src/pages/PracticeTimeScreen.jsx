@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
 import styles from './PracticeTimeScreen.module.css'; // Reuse styles or create new
 
 const options = [
-  'Morning',
+  'Night',
   'Afternoon',
-  'Night'
+  'Morning'
 ];
 
 function PracticeTimeScreen() {
@@ -17,15 +16,13 @@ function PracticeTimeScreen() {
     setSelectedOption(option);
   };
 
-  const handleContinue = () => {
+  useEffect(() => {
     if (selectedOption) {
       console.log('Selected practice time:', selectedOption);
       // Navigate to the confirmation screen
-      navigate('/onboarding/confirmation'); 
-    } else {
-      alert('Please select a time.');
+      navigate('/onboarding/confirmation');
     }
-  };
+  }, [selectedOption, navigate]);
 
   return (
     // Note: Screen 6 has a slightly different background style in the design
@@ -46,10 +43,6 @@ function PracticeTimeScreen() {
           </div>
         ))}
       </div>
-
-      <CustomButton onClick={handleContinue} className={styles.continueButton}>
-        Continue
-      </CustomButton>
     </div>
   );
 }

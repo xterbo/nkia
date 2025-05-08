@@ -13,43 +13,23 @@ const JustBreatheScreen = () => {
   const [showXpGain, setShowXpGain] = useState(false);
   const [xpGainPosition, setXpGainPosition] = useState(0);
   const [displayXp, setDisplayXp] = useState(0.1);
+
   const xpAnimationRef = useRef(null);
   const phaseTimerRef = useRef(null);
   const timerRef = useRef(null);
 
   const handleBack = () => {
-    if (timerRef.current) {
-      clearInterval(timerRef.current);
-    }
+    if (timerRef.current) clearInterval(timerRef.current);
+    if (phaseTimerRef.current) clearInterval(phaseTimerRef.current);
+    if (xpAnimationRef.current) clearInterval(xpAnimationRef.current);
     window.speechSynthesis.cancel();
     
-    // Show completion dialog
-    const confirmed = window.confirm('Did you achieve the task?');
-    if (confirmed) {
-      // Save completion status
-      const habits = JSON.parse(localStorage.getItem('habits') || '[]');
-      const updatedHabits = habits.map(habit => {
-        if (habit.day === 1) {
-          return { ...habit, isCompleted: true };
-        }
-        return habit;
-      });
-      localStorage.setItem('habits', JSON.stringify(updatedHabits));
-      
-      // Update XP
-      const currentXp = Number(localStorage.getItem('xp') || '0');
-      const newXp = currentXp + 10;
-      localStorage.setItem('xp', newXp.toString());
-      
-      // Activate next task (Mindful Moments)
-      localStorage.setItem('currentDay', '2');
-      
-      // Force a reload of the habits screen to update the state
-      window.location.href = '/habits';
-      return;
-    }
-    
-    navigate('/habits');
+    navigate('/habits', { 
+      state: { 
+        taskIdentifier: 'just-breathe',
+        taskTitle: 'the Just Breathe exercise'
+      }
+    });
   };
 
   const startXpAnimation = () => {
@@ -83,9 +63,9 @@ const JustBreatheScreen = () => {
       phaseTimerRef.current = setInterval(() => {
         setPhase(currentPhase => {
           if (currentPhase === 'exhale') {
-            const newXp = Math.min(xp + 2, 100);
-            setXp(newXp);
-            const position = ((100 - newXp) / 100) * 300;
+            const newVisualXp = Math.min(xp + 2, 100); 
+            setXp(newVisualXp);
+            const position = ((100 - newVisualXp) / 100) * 300;
             setXpGainPosition(position);
             setShowXpGain(true);
             startXpAnimation();
@@ -171,35 +151,6 @@ const JustBreatheScreen = () => {
     }
   };
 
-  const handleCompletion = () => {
-    const confirmed = window.confirm('Did you achieve your breathing goal?');
-    if (confirmed) {
-      // Get current habits from localStorage
-      const habits = JSON.parse(localStorage.getItem('habits') || '[]');
-      
-      // Mark Just Breathe (day 1) as completed
-      const updatedHabits = habits.map(habit => {
-        if (habit.day === 1) {
-          return { ...habit, completed: true };
-        }
-        return habit;
-      });
-      
-      // Save updated habits
-      localStorage.setItem('habits', JSON.stringify(updatedHabits));
-      
-      // Update XP
-      const currentXP = parseInt(localStorage.getItem('xp') || '0');
-      localStorage.setItem('xp', (currentXP + 10).toString());
-      
-      // Activate next task (Body Awareness)
-      localStorage.setItem('currentDay', '2');
-      
-      // Navigate back to habits screen
-      navigate('/habits');
-    }
-  };
-
   return (
     <div className={styles.container} style={{ backgroundImage: `url(${backgroundImage})` }}>
       <div className={styles.header}>
@@ -209,30 +160,6 @@ const JustBreatheScreen = () => {
           <span className={styles.timer}>{xp}XP</span>
         </div>
       </div>
-
-      {/* Commented out XP progress bar
-      <div className={styles.xpBar}>
-        <motion.div 
-          className={styles.xpProgress}
-          animate={{ height: `${xp}%` }}
-          transition={{ duration: 0.5 }}
-        />
-        <div className={styles.xpText}>{xp}XP</div>
-        <AnimatePresence>
-          {showXpGain && (
-            <motion.div
-              className={styles.xpGain}
-              initial={{ opacity: 0, x: 0, y: xpGainPosition }}
-              animate={{ opacity: 1, x: 30 }}
-              exit={{ opacity: 0, x: 60 }}
-              transition={{ duration: 0.5 }}
-            >
-              +{displayXp.toFixed(1)}XP
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </div>
-      */}
 
       <div className={styles.breathingContainer}>
         <div className={styles.circleContainer}>

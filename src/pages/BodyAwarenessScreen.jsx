@@ -3,6 +3,15 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import styles from './BodyAwarenessScreen.module.css';
 import backgroundImage from '../assets/background.png';
+import ConfirmationModal from '../components/ConfirmationModal';
+import CustomButton from '../components/CustomButton';
+
+// Import SVG icons (assuming paths)
+import playIconUrl from '../assets/icons/play.svg';
+import pauseIconUrl from '../assets/icons/pause.svg';
+import reverseIconUrl from '../assets/icons/reverse.svg'; // For Reset
+import muteIconUrl from '../assets/icons/mute.svg';       // Assumed for Mute
+import soundOnIconUrl from '../assets/icons/sound-on.svg'; // Assumed for Unmute/Sound On
 
 const BodyAwarenessScreen = () => {
   const navigate = useNavigate();
@@ -11,6 +20,9 @@ const BodyAwarenessScreen = () => {
   const [currentPosition, setCurrentPosition] = useState(1);
   const [isMuted, setIsMuted] = useState(false);
   const [countdown, setCountdown] = useState(5);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [modalMessage, setModalMessage] = useState('');
+  const [confirmAction, setConfirmAction] = useState(null);
   const intervalRef = useRef(null);
   const countdownRef = useRef(null);
   const duration = 420; // 7 minutes in seconds
@@ -64,7 +76,7 @@ const BodyAwarenessScreen = () => {
       }
     };
   }, [isPlaying]);
-  
+
   useEffect(() => {
     if (isPlaying) {
       // Speak the first instruction when starting
@@ -96,21 +108,44 @@ const BodyAwarenessScreen = () => {
     }
     window.speechSynthesis.cancel();
     
-    const confirmed = window.confirm('Did you complete the body awareness exercise?');
-    if (confirmed) {
-      const habits = JSON.parse(localStorage.getItem('habits') || '[]');
-      const updatedHabits = habits.map(habit => {
-        if (habit.day === 2) {
-          return { ...habit, completed: true };
-        }
-        return habit;
-      });
-      localStorage.setItem('habits', JSON.stringify(updatedHabits));
-      const currentXP = parseInt(localStorage.getItem('xp') || '0');
-      localStorage.setItem('xp', (currentXP + 10).toString());
-      localStorage.setItem('currentDay', '3');
+    setModalMessage('Did you complete the body awareness exercise?');
+    setConfirmAction(() => () => processCompletion(true));
+    setShowConfirmModal(true);
+  };
+
+  const processCompletion = (shouldNavigate) => {
+    const currentActiveIndex = parseInt(localStorage.getItem('currentActiveIndex') || '0');
+    const habits = JSON.parse(localStorage.getItem('habits') || '[]');
+    if (habits[currentActiveIndex]) {
+      habits[currentActiveIndex] = {
+        ...habits[currentActiveIndex],
+        completed: true,
+        isActive: false
+      };
     }
-    navigate('/habits');
+    if (currentActiveIndex + 1 < habits.length) {
+      habits[currentActiveIndex + 1] = {
+        ...habits[currentActiveIndex + 1],
+        completed: false,
+        isActive: true
+      };
+    }
+    localStorage.setItem('habits', JSON.stringify(habits));
+    localStorage.setItem('currentActiveIndex', String(currentActiveIndex + 1));
+    const currentXp = Number(localStorage.getItem('xp') || '0');
+    const newXp = currentXp + 2;
+    localStorage.setItem('xp', newXp.toString());
+    setShowConfirmModal(false);
+    if (shouldNavigate) {
+      navigate('/habits');
+    }
+  };
+
+  const handleCancel = () => {
+    setShowConfirmModal(false);
+    if (confirmAction && modalMessage === 'Did you complete the body awareness exercise?') {
+      navigate('/habits');
+    }
   };
 
   const togglePlay = () => {
@@ -155,21 +190,21 @@ const BodyAwarenessScreen = () => {
       <div className={styles.header}>
         <button className={styles.backButton} onClick={handleBack}>←</button>
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>Body Awareness</h1>
+        <h1 className={styles.title}>Body Awareness</h1>
           <p className={styles.subtitle}>7-minute guided session</p>
         </div>
       </div>
 
       <motion.div 
-        className={styles.instruction}
-        key={currentPosition}
+          className={styles.instruction}
+          key={currentPosition}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
+          transition={{ duration: 0.5 }}
+        >
         <p>{bodyPartInstructions[currentPosition - 1]}</p>
         {isPlaying && (
-          <motion.div 
+              <motion.div 
             className={styles.countdown}
             key={countdown}
             initial={{ scale: 1.2, opacity: 0.5 }}
@@ -179,7 +214,7 @@ const BodyAwarenessScreen = () => {
             {countdown}
           </motion.div>
         )}
-      </motion.div>
+              </motion.div>
 
       <div className={styles.bodyContainer}>
         <div className={styles.circularScanner}>
@@ -188,28 +223,38 @@ const BodyAwarenessScreen = () => {
           <div className={styles.rippleCircle}></div>
           <div className={styles.radarSweep}></div>
           <div className={styles.scanLine}></div>
+          </div>
         </div>
-      </div>
 
       <div className={styles.footer}>
         <p className={styles.goal}>Goal: Tune in to physical sensations from head to toe</p>
-        <div className={styles.progressBar}>
-          <motion.div 
-            className={styles.progressFill}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.5 }}
-          />
-        </div>
-        <div className={styles.controls}>
-          <button className={styles.resetButton} onClick={resetPosition}>↺</button>
-          <button className={styles.playButton} onClick={togglePlay}>
-            {isPlaying ? '❚❚' : '▶'}
-          </button>
-          <button className={styles.resetButton} onClick={toggleMute}>
-            {isMuted ? '🔇' : '🔊'}
-          </button>
+            <div className={styles.progressBarContainer}>
+              <div className={styles.progressTrack}></div>
+              <motion.div 
+                className={styles.progressThumb}
+                style={{ left: `${progress}%` }}
+                transition={{ duration: 0.3 }}
+              />
+            </div>
+            <div className={styles.controls}>
+              <button onClick={resetPosition} className={`${styles.circularButton} ${styles.sideCircularButton}`}>
+                <img src={reverseIconUrl} alt="Reset" className={styles.controlIcon} />
+              </button>
+              <button onClick={togglePlay} className={`${styles.circularButton} ${styles.playPauseCircularButton}`}>
+                <img src={isPlaying ? pauseIconUrl : playIconUrl} alt={isPlaying ? 'Pause' : 'Play'} className={styles.controlIcon} />
+              </button>
+              <button onClick={resetPosition} className={`${styles.circularButton} ${styles.sideCircularButton}`}>
+                <img src={reverseIconUrl} alt="Reset" className={styles.controlIcon} />
+              </button>
         </div>
       </div>
+
+      <ConfirmationModal
+        show={showConfirmModal}
+        message={modalMessage}
+        onConfirm={confirmAction}
+        onCancel={handleCancel}
+      />
     </div>
   );
 };

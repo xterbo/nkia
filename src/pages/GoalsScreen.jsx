@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CustomButton from '../components/CustomButton';
 import styles from './GoalsScreen.module.css';
-// Import the SVG as a URL for use in <img> src
+// Revert to importing the SVG as a URL
 import LotusIconURL from '../assets/icons/lotus.svg';
 
 const options = [
@@ -49,9 +49,25 @@ function GoalsScreen() {
     }
   };
 
+  // Function to handle back navigation
+  const handleBack = () => {
+    navigate('/onboarding/experience'); // Navigate to Experience screen
+  };
+
   return (
     <div className={styles.container}>
-      <h2 className={styles.title}>What do you need help with today?</h2>
+      {/* Header container for alignment */}
+      <div className={styles.header}>
+        <button 
+          onClick={handleBack}
+          className={styles.backButton} 
+          aria-label="Go back"
+        >
+          ←
+        </button>
+        <h2 className={styles.title}>What do you need help with today?</h2>
+      </div>
+      
       <p className={styles.subtitle}>Choose up to {MAX_SELECTIONS} options you want to achieve</p>
       
       <div className={styles.optionsList}>
@@ -62,7 +78,7 @@ function GoalsScreen() {
             onClick={() => handleSelect(option)}
           >
             <span>{option}</span>
-            {/* Use standard img tag with imported URL */}
+            {/* Revert back to using <img> tag with URL */}
             <img src={LotusIconURL} className={styles.lotusIcon} alt="" />
           </div>
         ))}

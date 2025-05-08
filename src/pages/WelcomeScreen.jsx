@@ -1,10 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
 import styles from './WelcomeScreen.module.css';
 // Import assets
 import ScrollImage from '../assets/images/scroll.png';
 import AvatarImage from '../assets/images/avatar.png'; // Import avatar image
+import CustomButton from '../components/CustomButton'; // Added import
 
 function WelcomeScreen() {
   const navigate = useNavigate();
@@ -41,6 +41,7 @@ function WelcomeScreen() {
         </p>
       </div>
 
+      {/* Replaced button with CustomButton */}
       <CustomButton onClick={handleContinue} className={styles.continueButton}>
         Continue
       </CustomButton>

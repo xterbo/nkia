@@ -1,0 +1,87 @@
+.modalOverlay {
+  position: absolute; /* To be contained by a positioned ancestor like .app-container */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5); /* Standard dark overlay, can be adjusted */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modalContent {
+  background-color: #b2ff59; /* Vibrant lime green from image */
+  padding: 25px; /* Increased padding a bit for the new design */
+  border-radius: 25px; /* Significantly rounded corners like in the image */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  width: 90%;
+  max-width: 340px; /* Adjusted max-width slightly for this design */
+  color: #333; /* Dark text for contrast on lime green */
+}
+
+.modalContent p {
+  margin-bottom: 25px; /* Adjusted spacing */
+  font-size: 1.1rem;
+  line-height: 1.5;
+  font-weight: bold; /* Text in image appears bold */
+  color: #333; /* Ensure message text color */
+}
+
+.modalActions {
+  display: flex;
+  justify-content: space-around; /* Space out buttons evenly */
+  gap: 10px; /* Reduced gap slightly for potentially wider SVG buttons */
+  margin-top: 10px; /* Adjusted spacing */
+}
+
+.button {
+  /* Remove CSS shape and background styles */
+  background-color: transparent;
+  border: none;
+  /* background-image will be set dynamically if needed, or use a placeholder if SVG path is stable */
+  /* For CSS Modules, we usually don't reference the import directly in CSS */
+  /* Instead, the component passes the URL if needed, or we hardcode path if it doesn't change */
+  /* Assuming btnsmallSvgUrl from JS will be applied via inline style or similar, or if this CSS is global and path is fixed */
+  /* For this example, I will assume the SVG is applied via a class that sets the background */
+  /* Let's define a common background setup here, but the actual URL might need to come from JS if it's dynamic */
+  background-image: url('../assets/icons/btnsmall.svg'); /* Direct path for CSS */
+  background-size: 100% 100%; /* Stretch to fill button dimensions */
+  background-repeat: no-repeat;
+  background-position: center;
+
+  font-size: 1rem;
+  font-weight: bold;
+  color: #333; /* Text color on top of SVG */
+  cursor: pointer;
+  transition: transform 0.1s ease;
+  
+  /* Define dimensions for the button to match SVG aspect ratio or desired size */
+  /* These are guesses - adjust based on your SVG's actual size and desired appearance */
+  width: 120px; /* Example width */
+  height: 50px;  /* Example height, adjust for aspect ratio */
+  padding: 0; /* Remove padding if SVG has internal spacing for text */
+
+  /* Text alignment */
+  display: flex; 
+  align-items: center; 
+  justify-content: center;
+  text-align: center; /* Ensure text is centered */
+  line-height: 1; /* Reset line-height for flex centering */
+}
+
+.button:hover {
+  /* Optional: Add hover effect like slight scale or filter if desired */
+  transform: scale(1.05);
+}
+
+.button:active {
+  transform: scale(0.98);
+}
+
+/* Specific confirm/cancel can be removed if styling is identical via .button */
+.confirmButton {}
+
+.cancelButton {} 

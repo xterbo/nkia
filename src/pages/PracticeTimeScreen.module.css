@@ -12,7 +12,7 @@
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
 }
@@ -22,7 +22,7 @@
     font-weight: 700; /* Bold */
     font-size: 1.8rem; /* Adjust */
     color: #333; /* Placeholder */
-    margin-bottom: 40px;
+    margin-bottom: 20px; /* Adjusted from 40px to match GoalsScreen's effective top space */
     width: 90%; 
 }
 

@@ -6,6 +6,9 @@ import reefGif from '../assets/gif/reef.gif';
 import goldenFlowerGif from '../assets/gif/golden flower.gif';
 import meditationLotusGif from '../assets/gif/Meditation Lotus.gif';
 import PageTransition from '../components/PageTransition';
+import playIconUrl from '../assets/icons/play.svg';
+import pauseIconUrl from '../assets/icons/pause.svg';
+import reverseIconUrl from '../assets/icons/reverse.svg';
 
 const VisualizationScreen = () => {
   const navigate = useNavigate();
@@ -26,18 +29,24 @@ const VisualizationScreen = () => {
     { 
       src: reefGif, 
       alt: 'Reef',
+      taskIdentifier: 'visualization-reef',
+      taskTitle: 'Reef Visualization',
       voiceGuide: "Focus on the gentle movement of the reef. Let your thoughts flow like water.",
-      backgroundSound: "/sounds/ocean-waves.mp3" // You'll need to add these audio files
+      backgroundSound: "/sounds/ocean-waves.mp3"
     },
     { 
       src: goldenFlowerGif, 
       alt: 'Golden Flower',
+      taskIdentifier: 'visualization-flower',
+      taskTitle: 'Golden Flower Visualization',
       voiceGuide: "Watch the golden flower bloom. Feel your awareness expanding with it.",
       backgroundSound: "/sounds/soft-music.mp3"
     },
     { 
       src: meditationLotusGif, 
       alt: 'Meditation Lotus',
+      taskIdentifier: 'visualization-lotus',
+      taskTitle: 'Mindful Moment',
       voiceGuide: "Observe the lotus pattern. Let it guide you to your center.",
       backgroundSound: "/sounds/meditation-bells.mp3"
     }
@@ -74,7 +83,7 @@ const VisualizationScreen = () => {
       }
       speechSynthesis.cancel();
     };
-  }, [currentGifIndex]);
+  }, [currentGifIndex, isPlaying]);
 
   // Handle play/pause state
   useEffect(() => {
@@ -87,7 +96,6 @@ const VisualizationScreen = () => {
         });
       }, 1000);
 
-      // Play audio and resume GIF
       if (audioRef.current) {
         audioRef.current.play().catch(e => console.log('Audio play prevented'));
       }
@@ -99,18 +107,14 @@ const VisualizationScreen = () => {
       }
 
     } else {
-      // Clear progress timer
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-
-      // Pause audio and GIF
       if (audioRef.current) {
         audioRef.current.pause();
       }
       speechSynthesis.pause();
 
-      // Pause GIF by hiding it temporarily
       const gifImg = document.querySelector(`.${styles.gifImage}`);
       if (gifImg) {
         gifImg.style.opacity = '0.5';
@@ -121,9 +125,8 @@ const VisualizationScreen = () => {
       if (intervalRef.current) {
         clearInterval(intervalRef.current);
       }
-      speechSynthesis.cancel();
     };
-  }, [isPlaying]);
+  }, [isPlaying, duration]);
 
   const handleTouchStart = (e) => {
     touchStartY.current = e.touches[0].clientY;
@@ -152,33 +155,33 @@ const VisualizationScreen = () => {
   };
 
   const handleBack = () => {
-    if (intervalRef.current) {
-      clearInterval(intervalRef.current);
-    }
+    // Cleanup timers and audio
+    if (intervalRef.current) clearInterval(intervalRef.current);
     if (audioRef.current) {
       audioRef.current.pause();
       audioRef.current = null;
     }
     speechSynthesis.cancel();
-    navigate('/habits');
+
+    // Navigate to habits screen, passing task info for confirmation
+    navigate('/habits', { 
+      state: { 
+        taskIdentifier: 'visualization', 
+        taskTitle: 'the mindful moment'
+      }
+    });
   };
 
   const togglePlay = () => {
     setIsPlaying(!isPlaying);
-    if (isPlaying) {
-      speechSynthesis.pause();
-    } else {
-      speechSynthesis.resume();
-      speak(gifs[currentGifIndex].voiceGuide);
-    }
   };
 
-  const resetProgress = () => {
+  const resetProgressFunc = () => {
     setProgress(0);
     if (audioRef.current) {
       audioRef.current.currentTime = 0;
     }
-    speak(gifs[currentGifIndex].voiceGuide);
+    if (isPlaying) speak(gifs[currentGifIndex].voiceGuide);
   };
 
   const handleImageError = (e) => {
@@ -203,77 +206,57 @@ const VisualizationScreen = () => {
 
   return (
     <PageTransition>
-      <div className={styles.container}>
+      <div className={styles.container} onTouchStart={handleTouchStart} onTouchEnd={handleTouchEnd}>
         <div className={styles.header}>
           <button className={styles.backButton} onClick={handleBack}>←</button>
-          <div className={styles.titleContainer}>
-            <h1 className={styles.title}>Mindful Moment</h1>
-            <p className={styles.subtitle}>12-minute focus your mind</p>
-          </div>
+          <h1 className={styles.title}>{gifs[currentGifIndex].alt}</h1>
         </div>
 
-        <div 
-          className={styles.visualContainer}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-        >
-          {error ? (
-            <div className={styles.errorMessage}>{error}</div>
-          ) : (
-            <AnimatePresence mode="wait" custom={swipeDirection}>
-              <motion.div 
-                key={currentGifIndex}
-                className={styles.gifContainer}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                custom={swipeDirection}
-                transition={{
-                  type: "spring",
-                  stiffness: 300,
-                  damping: 30
-                }}
-              >
-                <img 
-                  ref={el => gifRefs.current[currentGifIndex] = el}
-                  src={gifs[currentGifIndex].src} 
-                  alt={gifs[currentGifIndex].alt}
-                  className={styles.gifImage}
-                  onError={handleImageError}
-                  draggable="false"
-                  style={{ transition: 'opacity 0.3s' }}
-                />
-              </motion.div>
-            </AnimatePresence>
-          )}
-          <div className={styles.swipeIndicator}>
-            {currentGifIndex > 0 && <div className={styles.swipeUp}>⌃</div>}
-            {currentGifIndex < gifs.length - 1 && <div className={styles.swipeDown}>⌄</div>}
-          </div>
-        </div>
+        <AnimatePresence initial={false} custom={swipeDirection}>
+          <motion.img
+            key={currentGifIndex}
+            ref={el => gifRefs.current[currentGifIndex] = el}
+            src={gifs[currentGifIndex].src}
+            alt={gifs[currentGifIndex].alt}
+            className={styles.gifImage}
+            custom={swipeDirection}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={{ y: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
+            onError={handleImageError}
+          />
+        </AnimatePresence>
+        
+        {error && <p className={styles.errorMessage}>{error}</p>}
 
-        <div className={styles.footer}>
-          <p className={styles.goal}>Goal: Focus on the visuals to make your mind not wander.</p>
-          <div className={styles.progressBar}>
-            <motion.div 
-              className={styles.progressFill}
-              animate={{ width: `${progress}%` }}
-              transition={{ duration: 0.5 }}
-            />
-            <motion.div 
-              className={styles.progressDot}
-              animate={{ left: `${progress}%` }}
-              transition={{ duration: 0.5 }}
-            />
+        <div className={styles.footerControls}>
+          <p className={styles.goalText}>
+            Goal: Focus on the visuals to make your mind not wander.
+          </p>
+          
+          <div className={styles.progressTrack}>
+            <div className={styles.progressThumb} style={{ left: `${progress}%` }}></div>
           </div>
-          <div className={styles.controls}>
-            <button className={styles.resetButton} onClick={resetProgress}>↺</button>
-            <button className={styles.playButton} onClick={togglePlay}>
-              {isPlaying ? '❚❚' : '▶'}
+
+          <div className={styles.actionButtonsContainer}>
+            <button onClick={resetProgressFunc} className={`${styles.sideControlButton} ${styles.resetLeft}`}>
+              <img src={reverseIconUrl} alt="Reset" className={styles.sideControlIcon} />
+            </button>
+            <button onClick={togglePlay} className={styles.mainPlayPauseButton}>
+              <img 
+                src={isPlaying ? pauseIconUrl : playIconUrl} 
+                alt={isPlaying ? "Pause" : "Play"} 
+                className={styles.playPauseIcon}
+              />
+            </button>
+            <button onClick={resetProgressFunc} className={`${styles.sideControlButton} ${styles.resetRight}`}>
+              <img src={reverseIconUrl} alt="Reset" className={styles.sideControlIcon} />
             </button>
           </div>
         </div>
+
       </div>
     </PageTransition>
   );

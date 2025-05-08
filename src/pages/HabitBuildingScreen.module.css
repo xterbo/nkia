@@ -41,136 +41,178 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 40px;
+  gap: 8px;
   margin-top: 20px;
-  padding-left: 40px;
+  padding-left: 6px;
   min-height: 600px;
 }
 
 .verticalLine {
   position: absolute;
-  left: 17px;
+  left: 3px;
   top: 0;
-  width: 6px;
-  height: calc(100% - 100px);
+  width: 2px;
+  height: calc(100% - 80px);
   background: #D9FB90;
-  border-radius: 3px;
-  z-index: 0;
+  border-radius: 2px;
+  z-index: 1;
 }
 
 .habitItem {
-  display: grid;
-  grid-template-columns: 40px 1fr auto;
-  align-items: flex-start;
-  gap: 10px;
-  position: relative;
-}
-
-.habitGroup {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.progressBarWrapper {
+  align-items: center;
+  padding: 6px 6px 6px 2px;
+  background: transparent;
+  border-radius: 12px;
   position: relative;
-  z-index: 2;
-}
-
-.progressBar {
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.5;
+  min-height: 32px;
   width: 100%;
-  height: 10px;
-  min-height: 8px;
-  background: #d0e6c6;
-  border-radius: 8px;
-  display: block;
 }
 
-.progressIndicator {
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  left: -30px;
-  top: 50%;
-  transform: translateY(-50%);
-  border: 1px solid #4CAF50;
-  border-radius: 50%;
-  background: #C9F56A;
+.habitItem.active {
+  opacity: 1;
+  background: rgba(201, 245, 106, 0.1);
+  pointer-events: auto;
+}
+
+.habitItem.completed {
+  opacity: 1;
 }
 
 .dayOne {
-  background: #4CAF50;
-  border: none;
-}
-
-.active .progressIndicator {
   opacity: 1;
+  background: rgba(201, 245, 106, 0.1);
 }
 
-.completed .progressIndicator {
-  opacity: 1;
-}
-
-.completed .progressIndicator::after {
-  content: '✓';
+.progressIndicator {
+  width: 10px;
+  height: 10px;
   position: absolute;
+  left: -10px;
   top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translateY(-50%);
+  border: 1.5px solid rgba(76, 175, 80, 0.4);
+  border-radius: 50%;
+  background: #ffffff;
+  z-index: 2;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressIndicator.active {
+  background: #C9F56A;
+  box-shadow: 0 0 10px rgba(201, 245, 106, 0.5);
+  border-color: #C9F56A;
+  transform: translateY(-50%) scale(1.1);
+}
+
+.progressIndicator.completed {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.dayOne .progressIndicator {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.checkmark {
+  display: none;
   color: white;
-  font-size: 12px;
+  font-size: 7px;
   font-weight: bold;
+  line-height: 1;
+  transform: translateY(-0.5px);
+}
+
+.progressIndicator.completed .checkmark,
+.dayOne .checkmark {
+  display: flex;
+}
+
+.habitContent {
+  flex: 1;
+  margin-left: 0;
+  margin-right: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.habitTitle {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2c3e50;
+  line-height: 1.1;
+  transition: color 0.3s ease;
+  flex: 1;
+}
+
+.nextArrow {
+  font-size: 18px;
+  color: #2c3e50;
+  opacity: 0.7;
+  padding-right: 4px;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.habitItem:hover {
+  background: rgba(201, 245, 106, 0.15);
+}
+
+.habitItem:hover .nextArrow {
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* Make sure future tasks are not clickable */
+.habitItem:not(.active):not(.completed):not(.dayOne) {
+  pointer-events: none;
+  cursor: default;
+}
+
+.dayOne .progressIndicator {
+  background: #4CAF50;
+  border-color: #4CAF50;
+}
+
+.dayOne .checkmark {
+  display: flex;
+  color: white;
+}
+
+.dayOne {
+  opacity: 1;
+}
+
+.habitItem:hover .progressIndicator.active {
+  transform: translateY(-50%) scale(1.1);
+  box-shadow: 0 0 12px rgba(201, 245, 106, 0.6);
 }
 
 .dayRow {
   display: flex;
   align-items: center;
-  margin-bottom: 2px;
+  margin-bottom: 0;
 }
 
 .dayLabel {
   font-size: 12px;
-  color: #666;
-  font-family: 'Bellota', sans-serif;
-}
-
-.habitContent {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.habitTitle {
-  font-size: 16px;
-  color: rgba(44, 62, 80, 0.6);
+  color: #2c3e50;
   font-weight: 500;
-  font-family: 'Bellota', sans-serif;
+  min-width: 45px;
 }
 
-.active .habitTitle {
-  color: #2c3e50;
-  font-weight: 600;
-}
-
-.nextButton {
-  background: none;
-  border: none;
-  font-size: 20px;
-  color: rgba(44, 62, 80, 0.4);
-  padding: 8px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  align-self: flex-start;
-  margin-top: 4px;
-}
-
-.nextButton:hover {
-  color: rgba(44, 62, 80, 0.8);
-  transform: scale(1.1);
-}
-
-.active .nextButton {
-  color: #2c3e50;
+.active .habitTitle,
+.next-active .habitTitle {
+  color: #1a2634;
 }
 
 .xpContainer {
@@ -188,7 +230,7 @@
 .xpColumn {
   position: absolute;
   left: 17px;
-  bottom: 0;
+  bottom: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -208,42 +250,8 @@
   font-size: 16px;
   font-family: 'Bellota', sans-serif;
   text-align: center;
-  margin-top: -8px;
+  margin-top: 4px;
   transform: translateX(-50%);
-}
-
-.completeButton {
-  background: #4CAF50;
-  border: none;
-  font-size: 20px;
-  color: white;
-  padding: 8px;
-  cursor: pointer;
-  opacity: 0;
-  transition: opacity 0.2s;
-  align-self: center;
-  justify-self: center;
-  grid-column: 3;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.completeButton:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-}
-
-.completeButton:active {
-  transform: scale(0.95);
-}
-
-.habitItem:hover .completeButton {
-  opacity: 1;
 }
 
 @media (max-width: 600px) {
@@ -254,4 +262,25 @@
   .xpContainer {
     margin-top: 24px;
   }
+}
+
+/* Ensure proper task sequence interaction */
+.habitItem:not(.active):not(.next-active):not(.completed):not(.dayOne) {
+  pointer-events: none;
+  cursor: default;
+}
+
+.habitItem.active ~ .habitItem.next-active {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.5;
+}
+
+.habitItem.completed ~ .habitItem.active,
+.habitItem.completed ~ .habitItem.next-active,
+.dayOne ~ .habitItem.active,
+.dayOne ~ .habitItem.next-active {
+  pointer-events: auto;
+  cursor: pointer;
+  opacity: 1;
 } 

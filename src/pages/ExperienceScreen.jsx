@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import CustomButton from '../components/CustomButton';
+// Removed CustomButton import if no longer needed elsewhere
+// import CustomButton from '../components/CustomButton'; 
 import styles from './ExperienceScreen.module.css';
 
 const options = [
@@ -15,17 +16,9 @@ function ExperienceScreen() {
 
   const handleSelect = (option) => {
     setSelectedOption(option);
-  };
-
-  const handleContinue = () => {
-    if (selectedOption) {
-      console.log('Selected experience:', selectedOption);
-      // Navigate to the next onboarding step (Goals)
-      navigate('/onboarding/goals'); 
-    } else {
-      // Optional: Add feedback if nothing is selected
-      alert('Please select an option.');
-    }
+    console.log('Selected experience:', option);
+    // Navigate immediately to the next onboarding step (Goals)
+    navigate('/onboarding/goals'); 
   };
 
   return (
@@ -45,9 +38,12 @@ function ExperienceScreen() {
         ))}
       </div>
 
+      {/* Removed CustomButton */}
+      {/* 
       <CustomButton onClick={handleContinue} className={styles.continueButton}>
         Continue
       </CustomButton>
+      */}
     </div>
   );
 }

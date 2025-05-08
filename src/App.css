@@ -31,6 +31,7 @@ body {
   /* Ensure flex/grid children behave as expected */
   display: flex;
   flex-direction: column;
+  position: relative; /* Added to be a positioning context for the modal */
 }
 
 /* Make sure root element takes full height too */
@@ -76,4 +77,9 @@ body {
 
 .read-the-docs {
   color: #888;
+}
+
+.backButton:focus, .backButton:active {
+  outline: none !important;
+  box-shadow: none !important;
 }

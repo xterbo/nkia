@@ -1,8 +1,9 @@
 /* Reusing styles similar to ExperienceScreen */
 .container {
+    position: relative; /* Ensure container is a positioning context for absolute children like back button */
     min-height: 100vh;
     width: 100%;
-    padding: 60px 20px 40px 20px;
+    padding: 30px 20px 40px 20px;
     box-sizing: border-box;
     background-image: url('../assets/background.png');
     background-size: cover;
@@ -10,9 +11,37 @@
     background-repeat: no-repeat;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: flex-start;
     align-items: center;
     text-align: center;
+}
+
+.header {
+  display: flex;
+  align-items: center; /* Vertically align button and title */
+  width: 100%; /* Take full width */
+  padding: 0; /* Adjust padding if needed */
+  margin-bottom: 15px; /* Space below header before subtitle */
+  justify-content: flex-start; /* Align items to the start */
+}
+
+.backButton {
+  /* position: absolute; Removed */
+  /* top: 30px; Removed */
+  /* left: 20px; Removed */
+  background: none;
+  border: none;
+  color: #333; /* Default color, adjust if needed */
+  font-size: 28px; /* Adjust size */
+  padding: 5px 10px 5px 0; /* Adjust padding, especially right for spacing */
+  cursor: pointer;
+  /* z-index: 10; Removed */
+  transition: color 0.2s ease;
+  margin-right: 10px; /* Space between button and title */
+}
+
+.backButton:hover {
+  color: #000; /* Darken on hover */
 }
 
 .title {
@@ -20,8 +49,13 @@
     font-weight: 700; /* Bold */
     font-size: 1.8rem;
     color: #333; /* Placeholder */
-    margin-bottom: 10px; /* Less margin before subtitle */
-    width: 90%; 
+    margin-bottom: 5px; /* Reduced further from 10px */
+    width: auto; /* Allow title to take natural width */
+    /* margin-top: 50px; Removed */
+    text-align: center; /* Center title text */
+    flex-grow: 1; /* Allow title to take remaining space */
+    /* Add padding-right equal to back button width+margin if perfect centering is needed */
+    padding-right: calc(28px + 10px); /* Approximate adjustment for centering */
 }
 
 .subtitle {
@@ -29,12 +63,14 @@
     font-weight: 300; /* Light */
     font-size: 1rem;
     color: #555; /* Placeholder */
-    margin-bottom: 30px;
+    margin-bottom: 15px;
+    width: 90%; /* Keep subtitle centered */
+    text-align: center;
 }
 
 .optionsList {
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 40px; /* Restored margin for space above button */
 }
 
 .optionItem {
@@ -61,16 +97,21 @@
     background-color: rgba(165, 214, 167, 0.3); 
 }
 
-/* Styles for the imported SVG icon component */
+/* Styles for the imported SVG icon component (now an img tag) */
 .lotusIcon {
-    /* Adjust width/height as needed */
     width: 24px; 
     height: 24px;
-    /* Use fill to set color if the SVG allows it, otherwise remove this */
-    /* fill: #8bc34a; /* Placeholder green */ 
-    /* Remove color and font-size as they don't apply to SVG components */
+    /* fill: #888; Cannot use fill on an img tag */
+    transition: filter 0.2s ease; /* Transition the filter effect */
+}
+
+/* Change appearance when the parent item is selected using filter */
+.optionItem.selected .lotusIcon {
+    /* fill: #4CAF50; Cannot use fill */
+    filter: brightness(1.1) saturate(1.5); /* Example: Make it slightly brighter and more saturated */
 }
 
 .continueButton {
+    margin-top: auto; /* Push button to the bottom */
     /* Specific styles if needed */
 } 

@@ -12,6 +12,13 @@ import HabitBuildingScreen from './pages/HabitBuildingScreen';
 import JustBreatheScreen from './pages/JustBreatheScreen';
 import BodyAwarenessScreen from './pages/BodyAwarenessScreen';
 import VisualizationScreen from './pages/VisualizationScreen';
+import EmotionalCheckInScreen from './pages/EmotionalCheckInScreen';
+import GuidedReflectionPromptScreen from './pages/GuidedReflectionPromptScreen';
+import EmojiMoodSliderScreen from './pages/EmojiMoodSliderScreen';
+import MoodSelectorWheelScreen from './pages/MoodSelectorWheelScreen';
+import GratitudeJarScreen from './pages/GratitudeJarScreen';
+import SoundAwarenessScreen from './pages/SoundAwarenessScreen';
+import ReflectionScreen from './pages/ReflectionScreen';
 
 import './App.css';
 
@@ -33,6 +40,13 @@ function App() {
           <Route path="/habits/just-breathe" element={<JustBreatheScreen />} />
           <Route path="/habits/body-awareness" element={<BodyAwarenessScreen />} />
           <Route path="/habits/visualization" element={<VisualizationScreen />} />
+          <Route path="/habits/emotional-check-in" element={<EmotionalCheckInScreen />} />
+          <Route path="/habits/emotional-check-in/guided-reflection" element={<GuidedReflectionPromptScreen />} />
+          <Route path="/habits/emotional-check-in/emoji-slider" element={<EmojiMoodSliderScreen />} />
+          <Route path="/habits/emotional-check-in/mood-wheel" element={<MoodSelectorWheelScreen />} />
+          <Route path="/habits/gratitude-jar" element={<GratitudeJarScreen />} />
+          <Route path="/habits/sound-awareness" element={<SoundAwarenessScreen />} />
+          <Route path="/habits/reflection" element={<ReflectionScreen />} />
         </Routes>
       </div>
     </Router>

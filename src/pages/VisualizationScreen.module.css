@@ -23,21 +23,22 @@
   left: 0;
   right: 0;
   display: flex;
-  align-items: flex-start;
+  align-items: center; /* Vertically align items in header */
   padding: 20px;
   z-index: 10;
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent);
+  /* Background is transparent to let GIF show through, as per image */
+  background: transparent; 
 }
 
 .backButton {
   background: none;
   border: none;
-  font-size: 24px;
+  font-size: 28px; /* Slightly larger for better visibility */
   color: #FFFFFF;
-  padding: 8px 12px;
+  padding: 0; /* Remove padding to rely on icon size */
   cursor: pointer;
-  margin-right: 10px;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  margin-right: 15px; /* Space between back arrow and title */
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
 }
 
 .titleContainer {
@@ -45,12 +46,13 @@
 }
 
 .title {
-  font-size: 24px;
+  font-size: 22px; /* Adjusted size */
   margin: 0;
-  font-weight: 600;
+  font-weight: 700; /* Bold */
   font-family: 'Bellota', sans-serif;
   color: #FFFFFF;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+  /* If subtitle needed, add separate element or use ::after */
 }
 
 .subtitle {
@@ -153,115 +155,117 @@
   }
 }
 
-.footer {
+.footerControls {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 20px 20px 30px 20px; /* Add more bottom padding */
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 15px;
-  padding: 20px;
-  z-index: 10;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  gap: 15px; /* Space between goal text, progress bar, and button container */
+  /* Background is transparent to let GIF show, or a very subtle gradient if needed */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.3), transparent); /* Subtle dark gradient from bottom */
 }
 
-.goal {
-  font-size: 16px;
-  margin: 0;
-  font-family: 'Bellota', sans-serif;
-  text-align: center;
+.goalText {
+  font-size: 0.9rem; /* Slightly smaller than title */
   color: #FFFFFF;
-  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  margin-bottom: 5px; /* Space below goal text before progress bar */
+  font-family: 'Bellota', sans-serif;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
 }
 
-.progressBar {
-  width: 100%;
-  height: 4px;
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
-  overflow: visible;
-  position: relative;
+.progressTrack {
+  width: 80%;
   max-width: 300px;
-}
-
-.progressFill {
-  height: 100%;
-  background: #FFFFFF;
+  height: 4px;
+  background-color: rgba(255, 255, 255, 0.4); /* Light track color */
   border-radius: 2px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  position: relative; /* For positioning the thumb */
 }
 
-.progressDot {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  background: #FFFFFF;
+.progressThumb {
+  width: 14px; /* Thumb size */
+  height: 14px;
+  background-color: #000000; /* Solid black thumb */
   border-radius: 50%;
+  position: absolute;
   top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%); /* Center thumb on the track height and its own width */
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  /* 'left' property will be set via inline style based on progress */
 }
 
-.controls {
+.actionButtonsContainer {
   display: flex;
-  gap: 20px;
+  justify-content: center; /* Center the group of buttons */
   align-items: center;
+  gap: 30px; /* Space between reset and play/pause buttons */
+  width: 100%;
 }
 
-.playButton {
+.mainPlayPauseButton {
   width: 60px;
   height: 60px;
   border-radius: 50%;
   border: none;
-  background: rgba(0, 0, 0, 0.8);
+  background-color: transparent; /* Removed black background */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 22px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: #FFFFFF;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+  /* box-shadow: 0 2px 5px rgba(0,0,0,0.3); /* Consider removing or lightening shadow if no background */
+  padding: 0; 
 }
 
-.playButton:hover {
-  transform: scale(1.05);
-  background: rgba(0, 0, 0, 0.9);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+.playPauseIcon { 
+  width: 32px;   /* Slightly increased for better visibility without background, adjust as needed */
+  height: 32px;  /* Slightly increased for better visibility without background, adjust as needed */
 }
 
-.playButton:active {
-  transform: scale(0.95);
+.mainPlayPauseButton:hover {
+  transform: scale(1.1);
 }
 
-.resetButton {
-  width: 40px;
-  height: 40px;
+.sideControlButton {
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  border: none;
-  background: rgba(0, 0, 0, 0.3);
+  border: none; 
+  background-color: rgba(0, 0, 0, 0.2); 
+  /* color: #FFFFFF; Removed */
+  /* font-size: 18px; Removed */
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
   cursor: pointer;
-  transition: all 0.3s ease;
-  color: #FFFFFF;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  padding: 0; /* Ensure no padding interferes with image sizing */
 }
 
-.resetButton:hover {
-  transform: scale(1.05);
-  background: rgba(0, 0, 0, 0.4);
+.sideControlIcon { /* New style for the reverse SVG image */
+  width: 24px;  /* Adjusted for potentially smaller reset icon relative to button size */
+  height: 24px; /* Adjusted for potentially smaller reset icon relative to button size */
+}
+
+.sideControlButton:hover {
+  background-color: rgba(0, 0, 0, 0.4);
+  transform: scale(1.1);
 }
 
 .errorMessage {
-  color: #e74c3c;
-  font-size: 16px;
-  text-align: center;
-  padding: 20px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  margin: 20px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
+  padding: 10px 15px;
+  border-radius: 5px;
+  z-index: 20;
 } 
